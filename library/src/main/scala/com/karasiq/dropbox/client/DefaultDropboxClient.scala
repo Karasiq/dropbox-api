@@ -23,6 +23,10 @@ private[client] class DefaultDropboxClient(implicit rc: Dropbox.RequestConfig, t
     Future(dropbox.users().getSpaceUsage)
   }
 
+  def createDirectory(path: PathT) = {
+    Future(dropbox.files().createFolderV2(path).getMetadata)
+  }
+
   def list(path: PathT, recursive: Boolean) = {
     val stream = Source.fromIterator { () ⇒
       def nextIterator(cursor: String): Iterator[Metadata] = {

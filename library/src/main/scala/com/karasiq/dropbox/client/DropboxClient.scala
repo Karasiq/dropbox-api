@@ -7,7 +7,7 @@ import akka.actor.ActorSystem
 import akka.stream.Materializer
 import akka.stream.scaladsl.{Sink, Source}
 import akka.util.ByteString
-import com.dropbox.core.v2.files.{FileMetadata, Metadata}
+import com.dropbox.core.v2.files.{FileMetadata, FolderMetadata, Metadata}
 import com.dropbox.core.v2.users.SpaceUsage
 
 import com.karasiq.dropbox.model.Dropbox
@@ -15,6 +15,7 @@ import com.karasiq.dropbox.model.Dropbox
 trait DropboxClient {
   type PathT = String
   def spaceUsage(): Future[SpaceUsage]
+  def createDirectory(path: PathT): Future[FolderMetadata]
   def list(path: PathT, recursive: Boolean = false): Source[Metadata, NotUsed]
   def upload(path: PathT): Sink[ByteString, Future[FileMetadata]]
   def download(path: PathT): Source[ByteString, NotUsed]
