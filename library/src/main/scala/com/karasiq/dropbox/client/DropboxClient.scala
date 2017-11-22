@@ -15,6 +15,7 @@ import com.karasiq.dropbox.model.Dropbox
 trait DropboxClient {
   type PathT = String
   def spaceUsage(): Future[SpaceUsage]
+  def getMetadata(path: PathT): Future[Metadata]
   def createDirectory(path: PathT): Future[FolderMetadata]
   def list(path: PathT, recursive: Boolean = false): Source[Metadata, NotUsed]
   def upload(path: PathT): Sink[ByteString, Future[FileMetadata]]

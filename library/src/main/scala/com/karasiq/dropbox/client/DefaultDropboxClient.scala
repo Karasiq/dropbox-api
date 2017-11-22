@@ -23,6 +23,10 @@ private[client] class DefaultDropboxClient(implicit rc: Dropbox.RequestConfig, t
     Future(dropbox.users().getSpaceUsage)
   }
 
+  def getMetadata(path: PathT) = {
+    Future(dropbox.files().getMetadata(path))
+  }
+
   def createDirectory(path: PathT) = {
     Future(dropbox.files().createFolderV2(path).getMetadata)
   }
